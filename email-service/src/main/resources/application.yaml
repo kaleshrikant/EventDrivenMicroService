@@ -1,4 +1,29 @@
 spring:
+  # Kafka main Settings
+  kafka:
+    topic:
+      name: "order_topic"
+    # Consumer Configuration
+    consumer:
+      enable-auto-commit: true
+      bootstrap-servers: localhost:9092
+      group-id: email
+      auto-offset-reset: earliest # kafka will automatically provide an 'initial-offset' in topic if not provided explicitly.
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      max-pollrecords: 2000
+      fetch-min-size: 262144
+      fetch-max-wait: 100
+      heartbeat-interval: 7000
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: '*' # Spring kafka libs. will be trust '*' package(s) for serialization <--> deserialization process.
+        spring.json.value.default.type: com.fasterxml.jackson.databind.JsonNode
+        spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+
   application:
     name: email-service
 server:
