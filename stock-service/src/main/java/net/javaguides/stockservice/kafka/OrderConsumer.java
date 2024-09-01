@@ -25,7 +25,7 @@ public class OrderConsumer {
     public void consume(OrderEvent orderEvent) {
         LOGGER.info(String.format("Order Event Recived In Stock Service => %s ", String.valueOf(orderEvent)));
 
-        // todo : save the order event into the database.
+        // save the order event into the database.
 
         Long orderId = stockService.saveOrder(mapper(orderEvent));
         LOGGER.info(String.format("Order ID Saved In Stock Service => %s ", String.valueOf(orderId)));
